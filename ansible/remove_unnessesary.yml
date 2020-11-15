@@ -36,6 +36,6 @@
     - name: Install Kernel
       package:
         name: '{{ item }}'
-        states: present
+        state: present
       loop:
         - linux-image-5.2.13-050213-generic
