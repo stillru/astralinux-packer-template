@@ -17,4 +17,4 @@ assignees: ''
 Четкое и краткое описание всех рассмотренных вами альтернативных решений или функций.
 
 **Дополнительная информация**
-Add any other context or screenshots about the feature request here.
+Любая дополнительная информация
