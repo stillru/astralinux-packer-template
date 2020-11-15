@@ -1,0 +1,41 @@
+---
+# Remove most packages from tasksel Fly Desktop
+- name: 'Provision Image'
+  hosts: default
+  become: true
+
+  tasks:
+    - name: Autoclean
+      apt:
+        autoremove: true
+
+    - name: Remove Packages
+      package:
+        name: '{{ item }}'
+        state: absent
+      loop:
+        - hplip
+        - libmtp-runtime
+        - qt4-doc-html
+        - wxmaxima
+        - printer-driver-hpijs
+        - qt4-doc
+        - inkscape
+        - synaptic
+        - jag
+        - kdiff3-qt
+        - fly-all-optional
+        - blender
+        - swfdec-mozilla
+        - hplip-gui
+        - maxima
+        - qmmp
+        - printer-driver-hpcups
+        - linux-image-4.15.3-2-hardened
+
+    - name: Install Kernel
+      package:
+        name: '{{ item }}'
+        states: present
+      loop:
+        - linux-image-5.2.13-050213-generic

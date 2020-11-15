@@ -1,0 +1,15 @@
+{
+    "description": "Astralinux 1.12.22 upgraded to 1.12.29",
+    "short_description": "Astralinux-1.12.29",
+    "name": "MyOffice/developer-environment",
+    "versions": [{
+        "version": "1.12.29",
+        "status": "active",
+        "description_html": "<p>Dev Environment</p>",
+        "description_markdown": "Dev Environment",
+        "providers": [{
+            "name": "libvirt",
+            "url": "../astra-orel-1.12.29.box"
+        }]
+    }]
+}
