@@ -1,0 +1,114 @@
+# -*- coding: utf-8; mode: python -*-
+# get more information on this file usage on
+# https://github.com/vaab/gitchangelog/blob/master/src/gitchangelog/gitchangelog.rc.reference
+
+
+from gitchangelog.gitchangelog import ReSub
+
+ignore_regexps = [
+    r'@minor', r'!minor',
+    r'@cosmetic', r'!cosmetic',
+    r'@refactor', r'!refactor',
+    r'@wip', r'!wip',
+    r'^([cC]hg|[fF]ix|[nN]ew)\s*:\s*[p|P]kg:',
+    r'^([cC]hg|[fF]ix|[nN]ew)\s*:\s*[d|D]ev:',
+    r'^([cC]hg|[fF]ix|[nN]ew)\s*:\s*[t|T]est:',
+    r'^(.{3,3}\s*:)?\s*[fF]irst commit.?\s*$',
+    r'^$',  ## ignore commits with empty messages
+]
+
+section_regexps = [
+    (u'Добавлено', [
+        r'^[nN]ew\s*:\s*((dev|use?r|pkg|test|doc)\s*:\s*)?([^\n]*)$',
+     ]),
+    (u'Изменено', [
+        r'^[cC]hg\s*:\s*((dev|use?r|pkg|test|doc)\s*:\s*)?([^\n]*)$',
+     ]),
+    (u'Исправлено', [
+        r'^[fF]ix\s*:\s*((dev|use?r|pkg|test|doc)\s*:\s*)?([^\n]*)$',
+     ]),
+
+    # don't show untagged/without section logs
+    #('Other', None ## Match all lines
+    # ),
+
+]
+
+
+body_process = ReSub(r'((^|\n)[A-Z]\w+(-\w+)*: .*(\n\s+.*)*)+$', r'') | strip
+
+subject_process = (strip |
+    ReSub(r'^([cC]hg|[fF]ix|[nN]ew)\s*:\s*((dev|use?r|pkg|test|doc)\s*:\s*)?([^\n@]*)(@[a-z]+\s+)*$', r'\4') |
+    SetIfEmpty("No commit message.") | ucfirst | final_dot)
+
+tag_filter_regexp = r'^[0-9]+\.[0-9]+(\.[0-9]+)?(-\w.*)?$'
+
+unreleased_version_label = u"В разработке"
+
+import tempfile
+import textwrap
+
+#with tempfile.NamedTemporaryFile() as template_file:
+#    template = textwrap.dedent("""\
+#{{#general_title}}
+#{{{title}}}
+#==========
+#{{/general_title}}
+#
+#{{#versions}}
+#{{{label}}}
+#-----------
+#
+#{{#sections}}
+#{{{label}}}
+#~~~~~~~~~~
+#
+#{{#commits}}
+#- {{{subject}}}
+#{{#body}}
+#{{{body_indented}}
+#}
+#{{/body}}
+#{{/commits}}\n
+#{{/sections}}\n
+#{{/versions}}
+#""")
+
+#template_file.write(template)
+#template_file.flush()
+output_engine = mustache("restructuredtext")
+#output_engine = mustache(template_file.name)
+
+include_merge = False
+
+#log_encoding = 'utf-8'
+
+OUTPUT_FILE = "CHANGELOG.rst"
+INSERT_POINT_REGEX = r'''(?isxu)
+^
+(
+  Changelog\s*(\n|\r\n|\r)        ## ``Changelog`` line
+  ==+\s*(\n|\r\n|\r){2}              ## ``=========`` rest underline
+)
+
+(                     ## Match all between changelog and release rev
+    (
+      (?!
+         (?<=(\n|\r))                ## look back for newline
+         %(rev)s                     ## revision
+         \s+
+         \([0-9]+-[0-9]{2}-[0-9]{2}\)(\n|\r\n|\r)   ## date
+           --+(\n|\r\n|\r)                          ## ``---`` underline
+      )
+      .
+    )*
+)
+(?P<tail>(?P<rev>%(rev)s))
+''' % {'rev': r"[0-9]+\.[0-9]+(\.[0-9]+)?(-.+.*)?(\+.+.*)?"}
+
+revs = [
+    Caret(FileFirstRegexMatch(OUTPUT_FILE, INSERT_POINT_REGEX)),
+    "HEAD"
+]
+
+publish = FileRegexSubst(OUTPUT_FILE, INSERT_POINT_REGEX, r"\1\o\g<rev>")
