@@ -1,0 +1,15 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+# https://docs.vagrantup.com.
+
+Vagrant.configure(2) do |config|
+
+  config.vm.define :vm1 do |vm1|
+    vm1.vm.box = "{{name}}-{{version}}"
+    vm1.vm.synced_folder './', '/vagrant', disabled: true
+
+    vm1.vm.provider :libvirt do |domain|
+      domain.driver = "kvm"
+    end
+  end
+end

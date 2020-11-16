@@ -82,6 +82,11 @@
   "provisioners": [
     {
       "type": "ansible",
+      "playbook_file": "./ansible/generate.yml",
+      "extra_arguments": [ "--extra-vars", "version={{user `version`}} name={{user `name`}}"]
+    },
+    {
+      "type": "ansible",
       "playbook_file": "./ansible/remove_unnessesary.yml"
     },
     {
@@ -99,8 +104,9 @@
       "type":                   "vagrant",
       "output":                 "boxes/{{user `name`}}-{{user `version`}}.box",
       "include": [
-        "data/Vagrantfile.spec",
-        "data/metadata.json"
+        "data/Vagrantfile",
+        "data/metadata.json",
+        "data/info.json"
       ]
     }
   ]

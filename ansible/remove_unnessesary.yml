@@ -20,7 +20,7 @@
         - wxmaxima
         - printer-driver-hpijs
         - qt4-doc
-        - inkscape
+#        - inkscape
         - synaptic
         - jag
         - kdiff3-qt

@@ -1,0 +1,20 @@
+---
+# generate some files for vagrant
+- name: Generate some files for vagrant
+  hosts: localhost
+
+  tasks:
+    - name: Generate info
+      template:
+        src: templates/info.json.j2
+        dest: ../data/info.json
+
+    - name: Generate metadata
+      template:
+        src: templates/metadata.json.j2
+        dest: ../data/metadata.json
+
+    - name: Generate Vgarantfile
+      template:
+        src: templates/Vagrantfile.j2
+        dest: ../data/Vagrantfile
