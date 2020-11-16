@@ -16,12 +16,9 @@
 #limitations under the License.
 
 echo "Remove unnessesary packages"
-apt-get --yes install linux-image-5.2*generic
 apt-get --yes clean
 
 echo "Clean empty space"
-dd if=/dev/zero of=/EMPTY bs=1M
-rm -f /EMPTY
 unset HISTFILE
 rm -f /root/.bash_history
 rm -f /home/vagrant/.bash_history
@@ -53,3 +50,5 @@ rm -f /EMPTY
 # Block until the empty file has been removed, otherwise, Packer
 # will try to kill the box while the disk is still full and that's bad
 sync
+
+systemctl poweroff

@@ -34,7 +34,7 @@
 
       "net_device":         "e1000",
 
-      "shutdown_command":   "echo '{{user `password`}}'|sudo -S shutdown -P now",
+      "shutdown_command":   "echo '{{user `password`}}'| sudo systemctl poweroff",
 
       "boot_wait":          "2s",
       "cpus":               "{{ user `cpus` }}",
@@ -60,6 +60,7 @@
         "<esc><wait>",
         "<esc><enter><wait>",
         "/netinst/linux ",
+        "net.ifnames=0" ,
         "modprobe.blacklist=evbug ",
         "vga=788 ",
         "auto=true ",
