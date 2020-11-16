@@ -19,14 +19,14 @@ $ brew cask install packer vagrant virtualbox ansible
 ## Build vagrant box
 
 ```
-$ packer build -var 'type=Desktop' astra-common-1.12.29-netinst.json
+$ packer build -var 'type=Desktop' astra-orel-1.12.29-netinst.json
 ```
 
 
 ### Install your new box
 
 ```
-$ vagrant box add astra-common-1.12.29 ./boxes/astra-common-1.12.29.box --force
+$ vagrant box add astra-orel-1.12.29 ./boxes/astra-orel-1.12.29.box --force
 ```
 
 The VM image has been imported to vagrant, it's now available on your system.
@@ -39,7 +39,7 @@ The VM image has been imported to vagrant, it's now available on your system.
 To use this image with Vagrant, create a vagrant file:
 
 ```
-$ vagrant init astra-common-1.12.29
+$ vagrant init astra-orel-1.12.29
 ```
 
 

@@ -8,8 +8,7 @@
         "description_html": "<p>Dev Environment</p>",
         "description_markdown": "Dev Environment",
         "providers": [{
-            "name": "libvirt",
-            "url": "../astra-orel-1.12.29.box"
+            "name": "libvirt"
         }]
     }]
 }
