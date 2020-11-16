@@ -1,0 +1,29 @@
+
+# KEEP A CHANGELOG
+# Format
+#	ACTION: [AUDIENCE:] COMMIT_MSG [!TAG ...]
+#
+#ACTION
+# new: for new features, big improvement
+# chg: for refactor, small improvement, cosmetic changes...
+# fix: for bug fixes
+#
+#AUDIENCE
+# dev: for developpers (API changes, refactors...)
+# usr: or user: for final users (UI changes)
+# pkg: packaging changes
+# test: test only related changes
+# doc: doc only changes
+#
+#TAG
+#!refactor for refactoring code only
+#!minor for a very meaningless change (a typo, adding a comment)
+#!cosmetic for cosmetic driven change (re-indentation, 80-col...)
+#!wip for partial functionality but complete subfunctionality
+#
+#Examples de message
+#	new: usr: support of bazaar implemented
+#	chg: re-indentend some lines !cosmetic
+#	fix: pkg: updated year of licence coverage.
+#	new: test: added a bunch of test around user usability of feature X.
+#	fix: typo in spelling my name in comment. !minor
