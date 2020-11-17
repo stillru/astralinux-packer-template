@@ -51,4 +51,4 @@ rm -f /EMPTY
 # will try to kill the box while the disk is still full and that's bad
 sync
 
-systemctl poweroff
+#systemctl poweroff

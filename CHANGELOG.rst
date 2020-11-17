@@ -16,6 +16,8 @@ Changelog
 
 Исправлено
 ~~~~~~~~~~
+- Поравлен тимплейт для генерирования info.json. Fixes #6. [Steve Illichevskiy]
+
 - Поправлен файл с инструкциями по развёртыванию. [Steve Illichevskiy]
 
 - Удалён не используемый код. Поправлен вывод в консоли fix #5. [Steve Illichevskiy]

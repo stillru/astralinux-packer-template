@@ -26,6 +26,8 @@
       "iso_checksum":       "md5:{{user `md5sum`}}",
 
       "http_directory":     "http",
+      "http_port_min":      8999,
+      "http_port_max":      8999,
 
       "ssh_username":       "{{user `user`}}",
       "ssh_password":       "{{user `password`}}",
@@ -60,7 +62,7 @@
         "<esc><wait>",
         "<esc><enter><wait>",
         "/netinst/linux ",
-        "net.ifnames=0" ,
+        "net.ifnames=0 ",
         "modprobe.blacklist=evbug ",
         "vga=788 ",
         "auto=true ",
@@ -102,10 +104,9 @@
   "post-processors": [
     {
       "type":                   "vagrant",
-      "output":                 "boxes/{{user `name`}}-{{user `version`}}.box",
+      "output":                 "boxes/{{user `name`}}/libvirt/{{user `version`}}/{{user `name`}}-{{user `version`}}.box",
       "include": [
         "data/Vagrantfile",
-        "data/metadata.json",
         "data/info.json"
       ]
     }

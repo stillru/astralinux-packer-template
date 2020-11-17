@@ -14,23 +14,17 @@
         name: '{{ item }}'
         state: absent
       loop:
-        - hplip
         - libmtp-runtime
         - qt4-doc-html
         - wxmaxima
-        - printer-driver-hpijs
-        - qt4-doc
-#        - inkscape
+        - inkscape
         - synaptic
         - jag
-        - kdiff3-qt
         - fly-all-optional
         - blender
         - swfdec-mozilla
-        - hplip-gui
         - maxima
         - qmmp
-        - printer-driver-hpcups
         - linux-image-4.15.3-2-hardened
 
     - name: Install Kernel

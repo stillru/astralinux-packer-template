@@ -1,20 +1,44 @@
 ---
 # generate some files for vagrant
 - name: Generate some files for vagrant
-  hosts: localhost
+  hosts: default
 
   tasks:
     - name: Generate info
+      delegate_to: localhost
       template:
         src: templates/info.json.j2
         dest: ../data/info.json
 
     - name: Generate metadata
+      delegate_to: localhost
       template:
         src: templates/metadata.json.j2
         dest: ../data/metadata.json
 
     - name: Generate Vgarantfile
+      delegate_to: localhost
       template:
         src: templates/Vagrantfile.j2
         dest: ../data/Vagrantfile
+
+    - name: Enable ssh
+      become: true
+      service:
+        name: ssh
+        enabled: yes
+        state: started
+
+    - name: "Enable Autologin"
+      become: yes
+      replace: 
+        path: /etc/X11/fly-dm/fly-dmrc
+        regexp: '("{{ item.reg}}").*$'
+        replace: '{{ item.repl }}\n'
+        backup: yes
+      loop: 
+        - { reg: #AutoLoginEnable , repl: AutoLoginEnable=true }
+        - { reg: #AutoLoginUser , repl: AutoLoginUser=vagrant }
+        - { reg: #AutoLoginPass , repl: AutoLoginPass=vagrant }
+      ignore_errors: yes
+
