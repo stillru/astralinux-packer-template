@@ -53,7 +53,7 @@ config.vm.synced_folder '.', '/home/vagrant/sync', disabled: true
 And initialize the vm:
 
 ```
-$ vagrant up
+$ vagrant up --provider libvirt
 ```
 
 # ВНИМАНИЕ!
