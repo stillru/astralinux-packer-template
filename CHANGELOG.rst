@@ -16,6 +16,8 @@ Changelog
 
 Исправлено
 ~~~~~~~~~~
+- Поправлен тимплейт Vagrantfile. Fixes #7. [Steve Illichevskiy]
+
 - Поравлен тимплейт для генерирования info.json. Fixes #6. [Steve Illichevskiy]
 
 - Поправлен файл с инструкциями по развёртыванию. [Steve Illichevskiy]

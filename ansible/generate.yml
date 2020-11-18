@@ -37,8 +37,8 @@
         replace: '{{ item.repl }}\n'
         backup: yes
       loop: 
-        - { reg: #AutoLoginEnable , repl: AutoLoginEnable=true }
-        - { reg: #AutoLoginUser , repl: AutoLoginUser=vagrant }
-        - { reg: #AutoLoginPass , repl: AutoLoginPass=vagrant }
+        - { reg: "#AutoLoginEnable" , repl: "AutoLoginEnable=true" }
+        - { reg: "#AutoLoginUser" , repl: "AutoLoginUser=vagrant" }
+        - { reg: "#AutoLoginPass" , repl: "AutoLoginPass=vagrant" }
       ignore_errors: yes
 

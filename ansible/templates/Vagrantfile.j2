@@ -3,13 +3,11 @@
 # https://docs.vagrantup.com.
 
 Vagrant.configure(2) do |config|
-
-  config.vm.define :vm1 do |vm1|
-    vm1.vm.box = "{{name}}-{{version}}"
-    vm1.vm.synced_folder './', '/vagrant', disabled: true
-
-    vm1.vm.provider :libvirt do |domain|
-      domain.driver = "kvm"
-    end
+  config.nfs.verify_installed = false
+  config.vm.box = "astra-orel-1.12.29"
+  config.disksize.size = "30GB"
+  config.vm.synced_folder './', '/vagrant', disabled: true
+  config.vm.provider :libvirt do |libvirt|
+    libvirt.driver = "kvm"
   end
 end
