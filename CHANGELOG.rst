@@ -16,6 +16,8 @@ Changelog
 
 Исправлено
 ~~~~~~~~~~
+- Поправил имена виртуалок в части домена. Немного переработал вывод в консоль. [Steve Illichevskiy]
+
 - Поправлен тимплейт Vagrantfile. Fixes #7. [Steve Illichevskiy]
 
 - Поравлен тимплейт для генерирования info.json. Fixes #6. [Steve Illichevskiy]
