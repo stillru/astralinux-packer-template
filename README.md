@@ -1,24 +1,32 @@
 # AstraLinux Packer templates
 
-   * [ВНИМАНИЕ!](#ВНИМАНИЕ!)
-   * [ПРОЧТИМЕНЯ :-)](README.md#\xD0\xBF\xD1\x80\xD0\xBE\xD1\x87\xD1\x82\xD0\xB8\xD0\xBC\xD0\xB5\xD0\xBD\xD1\x8F--)
-      * [Описание](README.md#\xD0\xBE\xD0\xBF\xD0\xB8\xD1\x81\xD0\xB0\xD0\xBD\xD0\xB8\xD0\xB5)
-      * [Необходимые условия для запуска](README.md#\xD0\xBD\xD0\xB5\xD0\xBE\xD0\xB1\xD1\x85\xD0\xBE\xD0\xB4\xD0\xB8\xD0\xBC\xD1\x8B\xD0\xB5-\xD1\x83\xD1\x81\xD0\xBB\xD0\xBE\xD0\xB2\xD0\xB8\xD1\x8F-\xD0\xB4\xD0\xBB\xD1\x8F-\xD0\xB7\xD0\xB0\xD0\xBF\xD1\x83\xD1\x81\xD0\xBA\xD0\xB0)
-      * [Первые шаги](README.md#\xD0\xBF\xD0\xB5\xD1\x80\xD0\xB2\xD1\x8B\xD0\xB5-\xD1\x88\xD0\xB0\xD0\xB3\xD0\xB8)
-         * [Настроить переменные в файле astra-common-x.x.x-netinst.json](README.md#\xD0\xBD\xD0\xB0\xD1\x81\xD1\x82\xD1\x80\xD0\xBE\xD0\xB8\xD1\x82\xD1\x8C-\xD0\xBF\xD0\xB5\xD1\x80\xD0\xB5\xD0\xBC\xD0\xB5\xD0\xBD\xD0\xBD\xD1\x8B\xD0\xB5-\xD0\xB2-\xD1\x84\xD0\xB0\xD0\xB9\xD0\xBB\xD0\xB5-astra-common-xxx-netinstjson)
-         * [Настроить vars.yml](README.md#\xD0\xBD\xD0\xB0\xD1\x81\xD1\x82\xD1\x80\xD0\xBE\xD0\xB8\xD1\x82\xD1\x8C-varsyml)
-      * [Запуск сборки машины](README.md#\xD0\xB7\xD0\xB0\xD0\xBF\xD1\x83\xD1\x81\xD0\xBA-\xD1\x81\xD0\xB1\xD0\xBE\xD1\x80\xD0\xBA\xD0\xB8-\xD0\xBC\xD0\xB0\xD1\x88\xD0\xB8\xD0\xBD\xD1\x8B)
-         * [Сборка виртуальной машины c GUI](README.md#\xD1\x81\xD0\xB1\xD0\xBE\xD1\x80\xD0\xBA\xD0\xB0-\xD0\xB2\xD0\xB8\xD1\x80\xD1\x82\xD1\x83\xD0\xB0\xD0\xBB\xD1\x8C\xD0\xBD\xD0\xBE\xD0\xB9-\xD0\xBC\xD0\xB0\xD1\x88\xD0\xB8\xD0\xBD\xD1\x8B-c-gui)
-         * [Сборка виртуальной машины без GUI](README.md#\xD1\x81\xD0\xB1\xD0\xBE\xD1\x80\xD0\xBA\xD0\xB0-\xD0\xB2\xD0\xB8\xD1\x80\xD1\x82\xD1\x83\xD0\xB0\xD0\xBB\xD1\x8C\xD0\xBD\xD0\xBE\xD0\xB9-\xD0\xBC\xD0\xB0\xD1\x88\xD0\xB8\xD0\xBD\xD1\x8B-\xD0\xB1\xD0\xB5\xD0\xB7-gui)
-         * [WARNING!](README.md#warning)
-      * [Boxes description](README.md#boxes-description)
-      * [Prerequisites](README.md#prerequisites)
-      * [Build vagrant box](README.md#build-vagrant-box)
-         * [Install your new box](README.md#install-your-new-box)
-      * [Vagrant](README.md#vagrant)
-         * [Getting Started](README.md#getting-started)
+<!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
+**Table of Contents**
+
+- [AstraLinux Packer templates](#astralinux-packer-templates)
+    - [ВНИМАНИЕ!](#внимание)
+- [ПРОЧТИМЕНЯ :-)](#прочтименя--)
+    - [Описание](#описание)
+    - [Необходимые условия для запуска](#необходимые-условия-для-запуска)
+    - [Первые шаги](#первые-шаги)
+        - [Настроить переменные в файле astra-common-x.x.x-netinst.json](#настроить-переменные-в-файле-astra-common-xxx-netinstjson)
+        - [Настроить vars.yml](#настроить-varsyml)
+    - [Запуск сборки машины](#запуск-сборки-машины)
+        - [Сборка виртуальной машины c GUI](#сборка-виртуальной-машины-c-gui)
+        - [Сборка виртуальной машины без GUI](#сборка-виртуальной-машины-без-gui)
+        - [WARNING!](#warning)
+    - [Boxes description](#boxes-description)
+    - [Prerequisites](#prerequisites)
+    - [Build vagrant box](#build-vagrant-box)
+        - [Install your new box](#install-your-new-box)
+    - [Vagrant](#vagrant)
+        - [Getting Started](#getting-started)
+
+<!-- markdown-toc end -->
+
 
 ## ВНИМАНИЕ!
+[1:]
 Данный проект находится в стадии alpha!
 
 # ПРОЧТИМЕНЯ :-)
