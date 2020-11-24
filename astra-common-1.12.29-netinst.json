@@ -32,9 +32,12 @@
       "ssh_username":       "{{user `user`}}",
       "ssh_password":       "{{user `password`}}",
       "ssh_port":           22,
-      "ssh_wait_timeout":   "120m",
+      "ssh_wait_timeout":   "240m",
 
       "net_device":         "e1000",
+
+      "shutdown_timeout": "1h",
+      "shutdown_command": "echo {{user `password`}}| sudo -S systemctl poweroff",
 
       "boot_wait":          "2s",
       "cpus":               "{{ user `cpus` }}",
@@ -42,10 +45,6 @@
         [
           "-m",
           "1024M"
-        ],
-        [
-          "--no-acpi",
-          ""
         ],
         [
           "-smp",
@@ -73,6 +72,7 @@
         "url=http://192.168.1.10:{{ .HTTPPort }}/{{user `name`}}-{{user `version`}}-{{user `type`}}.cfg ",
         "interface=auto ",
         "netcfg/dhcp_timeout=60 ",
+        "acpi=force ",
         "initrd=/netinst/initrd.gz",
         "<enter><wait>"
       ]
@@ -83,17 +83,14 @@
     {
       "type": "ansible",
       "playbook_file": "./ansible/generate.yml",
+      "user": "vagrant",
       "extra_arguments": [ "--extra-vars", "version={{user `version`}} name={{user `name`}}"]
-    },
-    {
-      "type": "ansible",
-      "playbook_file": "./ansible/remove_unnessesary.yml"
     },
     {
       "type":               "shell",
       "execute_command":    "echo '{{user `password`}}' | {{.Vars}} sudo -E -S bash '{{.Path}}'",
+      "expect_disconnect": true,
       "scripts": [
-        "scripts/vagrant.sh",
         "scripts/minimize.sh"
       ]
     }

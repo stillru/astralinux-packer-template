@@ -15,7 +15,6 @@
 #See the License for the specific language governing permissions and
 #limitations under the License.
 
-echo "Remove unnessesary packages"
 apt-get --yes clean
 
 echo "Clean empty space"
@@ -29,20 +28,20 @@ count=`df --sync -kP / | tail -n1  | awk -F ' ' '{print $4}'`;
 let count--
 dd if=/dev/zero of=/tmp/whitespace bs=1024 count=$count;
 rm /tmp/whitespace;
-
+sync
 echo "Whiteout /boot"
 count=`df --sync -kP /boot | tail -n1 | awk -F ' ' '{print $4}'`;
 let count--
 dd if=/dev/zero of=/boot/whitespace bs=1024 count=$count;
 rm /boot/whitespace;
-
+sync
 echo "Clean swap"
 swappart=`cat /proc/swaps | tail -n1 | awk -F ' ' '{print $1}'`
 swapoff $swappart;
 dd if=/dev/zero of=$swappart;
 mkswap $swappart;
 swapon $swappart;
-
+sync
 echo "Fill filesystem with 0 to reduce box size"
 dd if=/dev/zero of=/EMPTY bs=1M
 rm -f /EMPTY
@@ -50,5 +49,6 @@ rm -f /EMPTY
 # Block until the empty file has been removed, otherwise, Packer
 # will try to kill the box while the disk is still full and that's bad
 sync
-
+sleep 60
+echo "Time to kill vm"
 #systemctl poweroff

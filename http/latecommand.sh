@@ -6,4 +6,3 @@ sed -i "s/^#PasswordAuthentication.*\$/PasswordAuthentication yes/g" /etc/ssh/ss
 cp /var/logs/syslog /root/syslog-install.log
 apt-get --yes purge linux-image-4.15.3-2-hardened
 systemctl enable ssh
-echo Done
