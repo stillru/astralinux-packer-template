@@ -1,0 +1,110 @@
+{
+  "variables": {
+    "ip_address":           "192.168.1.10",
+    "cpus":                 "2",
+    "name":                 "astra-orel",
+    "domain":               "undefined",
+    "version":              "2.12.29",
+    "user":                 "vagrant",
+    "password":             "vagrant",
+    "size":                 "30000",
+    "mirror":               "http://download.astralinux.ru/astra/stable/orel/iso/orel-current.iso",
+    "md5sum":               "6f0102e904a793b3674f8d0fedd6d93f"
+  },
+
+  "builders": [
+    {
+      "machine_type":       "ubuntu",
+      "name":               "{{user `name`}}",
+      "type":               "qemu",
+      "format":             "qcow2",
+      "accelerator":        "kvm",
+
+      "disk_size":          "{{user `size`}}",
+      "disk_interface":     "virtio",
+
+      "iso_url":            "{{user `mirror`}}",
+      "iso_checksum":       "md5:{{user `md5sum`}}",
+
+      "http_directory":     "http",
+      "http_port_min":      8999,
+      "http_port_max":      8999,
+
+      "ssh_username":       "{{user `user`}}",
+      "ssh_password":       "{{user `password`}}",
+      "ssh_port":           22,
+      "ssh_wait_timeout":   "240m",
+
+      "net_device":         "e1000",
+
+      "shutdown_timeout": "1h",
+      "shutdown_command": "echo {{user `password`}}| sudo -S systemctl poweroff",
+
+      "boot_wait":          "2s",
+      "cpus":               "{{ user `cpus` }}",
+      "qemuargs": [
+        [
+          "-m",
+          "1024M"
+        ],
+        [
+          "-smp",
+          "{{ user `cpus` }}"
+        ],
+        [
+          "-rtc",
+          "base=localtime"
+        ]
+      ],
+      "boot_command": [
+        "<esc><wait>",
+        "<esc><enter><wait>",
+        "/netinst/linux ",
+        "net.ifnames=0 ",
+        "modprobe.blacklist=evbug ",
+        "vga=788 ",
+        "auto=true ",
+        "priority=critical ",
+        "debian-installer/locale=ru_RU ",
+        "debian-installer/keymap=ru ",
+        "hostname={{user `name`}} ",
+        "domain={{user `domain`}} ",
+        "astra-license/license=true ",
+        "url=http://{{user `ip_address`}}:{{ .HTTPPort }}/{{user `name`}}-{{user `version`}}-{{user `type`}}.cfg ",
+        "interface=auto ",
+        "netcfg/dhcp_timeout=60 ",
+        "acpi=force ",
+        "initrd=/netinst/initrd.gz",
+        "<enter><wait>"
+      ]
+    }
+  ],
+
+  "provisioners": [
+    {
+      "type": "ansible",
+      "playbook_file": "./ansible/generate.yml",
+      "user": "vagrant",
+      "extra_arguments": [ "--extra-vars", "version={{user `version`}} name={{user `name`}}"]
+    },
+    {
+      "type":               "shell",
+      "execute_command":    "echo '{{user `password`}}' | {{.Vars}} sudo -E -S bash '{{.Path}}'",
+      "expect_disconnect": true,
+      "scripts": [
+        "scripts/minimize.sh"
+      ]
+    }
+  ],
+
+  "post-processors": [
+    {
+      "type":                   "vagrant",
+      "output":                 "boxes/{{user `name`}}/libvirt/{{user `version`}}/{{user `name`}}-{{user `version`}}.box",
+      "include": [
+        "data/Vagrantfile",
+        "data/info.json"
+      ]
+    }
+  ]
+}
