@@ -1,62 +1,26 @@
 # AstraLinux Packer templates
 
-### WARNING!
-Project in ALPHA state!
+![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/stillru/astralinux-packer-template?style=flat-square)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/stillru/astralinux-packer-template?style=flat-square)
+<!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
+**Table of Contents**
 
-## Boxes description
+- [Project Description/Описание проекта](#project-descriptionописание-проекта)
+    - [Russian](#russian)
+    - [English](#english)
+- [Russian Readme](README.ru.md)
+- [English Readme](README.en.md)
+<!-- markdown-toc end -->
+# Project Description/Описание проекта
+## Russian
+Проект представляет из себя попытку создать шаблон для инструмента `packer` на основе операционной системы `AstraLinux Common Edition`.
 
-* OS : AstraLinux 1.12.22 amd64
-* 1024MB Ram, 2 CPU
-* Vagrant ssh key are installed on vagrant and root users
+Все предыдущие похожие попытки заброшены их создателями.
 
+Данный проект является для меня первой попыткой вести проект в соответствии с практиками работы с git.
+## English
+The project is an attempt to create a template for the `packer` tool based on the` AstraLinux Common Edition` operating system.
 
-## Prerequisites
+All previous similar attempts have been abandoned by their creators.
 
-```
-$ brew cask install packer vagrant virtualbox ansible
-```
-
-## Build vagrant box
-
-```
-$ packer build -var 'type=Desktop' astra-orel-1.12.29-netinst.json
-```
-
-
-### Install your new box
-
-```
-$ vagrant box add astra-orel-1.12.29 ./boxes/astra-orel-1.12.29.box --force
-```
-
-The VM image has been imported to vagrant, it's now available on your system.
-
-
-## Vagrant
-
-### Getting Started
-
-To use this image with Vagrant, create a vagrant file:
-
-```
-$ vagrant init astra-orel-1.12.29
-```
-
-
-Add this line in `Vagrantfile`:
-
-```
-config.vm.synced_folder '.', '/home/vagrant/sync', disabled: true
-```
-
-
-And initialize the vm:
-
-```
-$ vagrant up --provider libvirt
-```
-
-# ВНИМАНИЕ!
-
-Данный проект находится в стадии alpha!
-
+This project is my first attempt to lead the project in accordance with the practices of working with git.
