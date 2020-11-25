@@ -1,12 +1,14 @@
 # AstraLinux Packer templates
 
+![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/stillru/astralinux-packer-template?style=flat-square)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/stillru/astralinux-packer-template?style=flat-square)
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
 **Table of Contents**
 
 - [AstraLinux Packer templates](#astralinux-packer-templates)
-    - [ВНИМАНИЕ!](#внимание)
-- [ПРОЧТИМЕНЯ :-)](#прочтименя--)
-    - [Описание](#описание)
+- [ВНИМАНИЕ!](#внимание)
+- [Описание](#описание)
+    - [Цель проекта](#цель-проекта)
     - [Необходимые условия для запуска](#необходимые-условия-для-запуска)
     - [Первые шаги](#первые-шаги)
         - [Настроить переменные в файле astra-common-x.x.x-netinst.json](#настроить-переменные-в-файле-astra-common-xxx-netinstjson)
@@ -14,24 +16,23 @@
     - [Запуск сборки машины](#запуск-сборки-машины)
         - [Сборка виртуальной машины c GUI](#сборка-виртуальной-машины-c-gui)
         - [Сборка виртуальной машины без GUI](#сборка-виртуальной-машины-без-gui)
-        - [WARNING!](#warning)
-    - [Boxes description](#boxes-description)
+- [WARNING!](#warning)
+- [Boxes description](#boxes-description)
     - [Prerequisites](#prerequisites)
     - [Build vagrant box](#build-vagrant-box)
-        - [Install your new box](#install-your-new-box)
+    - [Install your new box](#install-your-new-box)
     - [Vagrant](#vagrant)
         - [Getting Started](#getting-started)
 
 <!-- markdown-toc end -->
 
 
-## ВНИМАНИЕ!
-[1:]
+# ВНИМАНИЕ!
 Данный проект находится в стадии alpha!
 
-# ПРОЧТИМЕНЯ :-)
+# Описание
 
-## Описание
+## Цель проекта
 Проект для автоматического создания витуальных машин `vagrant` на основе `Astra Linux Common Edition` с помошью инструмента `packer`.
 
 ## Необходимые условия для запуска
@@ -96,11 +97,10 @@ Build 'astra-orel' finished after 1 hour 50 minutes.
 
 !! Раздел в разработке
 
-###
-### WARNING!
+# WARNING!
 Project in ALPHA state!
 
-## Boxes description
+# Boxes description
 
 * OS : AstraLinux 1.12.22 amd64
 * 1024MB Ram, 2 CPU
@@ -120,7 +120,7 @@ $ packer build -var 'type=Desktop' astra-orel-1.12.29-netinst.json
 ```
 
 
-### Install your new box
+## Install your new box
 
 ```
 $ vagrant box add astra-orel-1.12.29 ./boxes/astra-orel-1.12.29.box --force
@@ -152,3 +152,11 @@ And initialize the vm:
 ```
 $ vagrant up --provider libvirt
 ```
+
+
+### FB Post
+Hello from cold Russian Capital!
+
+Let me introduce you my first packer template and another debian based distro.
+
+I need some help with testing this template. On my machine all work pretty well. But i havent another one to test in different circumstances. https://github.com/stillru/astralinux-packer-template
