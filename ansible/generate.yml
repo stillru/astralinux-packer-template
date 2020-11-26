@@ -102,3 +102,12 @@
         - { reg: "#AutoLoginEnable" , repl: "AutoLoginEnable=true" }
         - { reg: "#AutoLoginUser" , repl: "AutoLoginUser=vagrant" }
         - { reg: "#AutoLoginPass" , repl: "AutoLoginPass=vagrant" }
+
+    - name: Enable DHCP on eth0
+      become: yes
+      blockinfile:
+        path: /etc/network/interfaces
+        marker: "#{mark} ANSIBLE MANAGED BLOCK"
+        block: |
+          allow-hotplug eth0
+          iface eth0 inet dhcp
