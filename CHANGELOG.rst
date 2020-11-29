@@ -6,6 +6,8 @@ Changelog
 
 Добавлено
 ~~~~~~~~~
+- Обновлён README для англоязычных пользователей. [Steve Illichevskiy]
+
 - Разделил README на две части в двух разных файлах. [Steve Illichevskiy]
 
 
