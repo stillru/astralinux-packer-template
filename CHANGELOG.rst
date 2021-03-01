@@ -6,6 +6,8 @@ Changelog
 
 Добавлено
 ~~~~~~~~~
+- Версия с базовым iso от версии 2.12.40. [Steve Illichevskiy]
+
 - Обновлён README для англоязычных пользователей. [Steve Illichevskiy]
 
 - Разделил README на две части в двух разных файлах. [Steve Illichevskiy]
