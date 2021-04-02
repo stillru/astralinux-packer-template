@@ -5,7 +5,7 @@ ENV['VAGRANT_DEFAULT_PROVIDER'] = 'libvirt'
 
 Vagrant.configure(2) do |config|
   config.nfs.verify_installed = false
-  config.vm.box = "astra-orel-1.12.29"
+  config.vm.box = "astra-orel-{{ version }}"
   config.disksize.size = "30GB"
   config.vm.synced_folder './', '/vagrant', disabled: true
   config.vm.provider :libvirt do |libvirt|

@@ -1,4 +1,4 @@
 ---
 type: Desktop
-version: 2.12.40
-name: astra-orel
+version: 2.12.42
+name: "astra-orel-{{ type }}"

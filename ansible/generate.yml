@@ -4,10 +4,10 @@
   hosts: default
   vars_files:
     - vars/vars.yml
-  pre_tasks:
-    - name: Install python for Ansible
-      raw: test -e /usr/bin/python || (apt -y update && apt install -y python-minimal)
-      changed_when: False
+  #pre_tasks:
+  #  - name: Install python for Ansible
+  #    raw: test -e /usr/bin/python || (apt -y update && apt install -y python-minimal)
+  #    changed_when: False
   tasks:
     - name: Generate info
       delegate_to: localhost
@@ -83,8 +83,9 @@
           - swfdec-mozilla
           - maxima
           - qmmp
-          - linux-image-4.15.3-2-hardened
+          - linux-image-*-hardened
         state: absent
+      when: '"Desktop" in type'
 
     - name: Autoclean
       become: true
@@ -102,6 +103,7 @@
         - { reg: "#AutoLoginEnable" , repl: "AutoLoginEnable=true" }
         - { reg: "#AutoLoginUser" , repl: "AutoLoginUser=vagrant" }
         - { reg: "#AutoLoginPass" , repl: "AutoLoginPass=vagrant" }
+      when: '"Desktop" in type'
 
     - name: Enable DHCP on eth0
       become: yes
