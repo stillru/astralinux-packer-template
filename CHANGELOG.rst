@@ -6,6 +6,8 @@ Changelog
 
 Добавлено
 ~~~~~~~~~
+- Добавлен файл с конфигурацией ansible. [Steve Illichevskiy]
+
 - Новый preseed для генерации образа без графики - Server. [Steve Illichevskiy]
 
 
