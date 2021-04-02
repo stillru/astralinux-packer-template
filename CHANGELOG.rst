@@ -11,6 +11,8 @@ Changelog
 
 Исправлено
 ~~~~~~~~~~
+- Исправлен скрипт генерации mtod приглашения. [Steve Illichevskiy]
+
 - Используется ядро 5.4 (fix #19) [Steve Illichevskiy]
 
 
