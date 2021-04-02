@@ -64,9 +64,9 @@ packer build -var version=x.x.x -var type=Desktop astra-common-x.x.x-netinst.jso
 
 Variable `version` not required.
 
-Variable `type` is required and shuld be `Desktop`.
+Variable `type` is required and shuld be `Desktop` or `Server`. Depend of witch type you need.
 
-All variables like `x.x.x` shuld be replaced with actual var. Need attention to file `astra-orel-x.x.x-Desktop.cfg` at `http` directory.
+All variables like `x.x.x` shuld be replaced with actual var. Need attention to file `astra-orel-x.x.x-Desktop.cfg` or `astra-orel-x.x.x-Server.cfg` at `http` directory.
 
 At the end of process you shuld see something like:
 
@@ -76,7 +76,7 @@ Build 'astra-orel' finished after 1 hour 50 minutes.
 ==> Wait completed after 1 hour 50 minutes
 
 ==> Builds finished. The artifacts of successful builds are:
---> astra-orel: 'libvirt' provider box: boxes/astra-orel/libvirt/x.x.x/astra-orel-x.x.x.box
+--> astra-orel: 'libvirt' provider box: boxes/astra-orel/libvirt/x.x.x/astra-orel-x.x.x-Desktop.box
 ```
 ### Generate box without GUI
 
@@ -86,7 +86,7 @@ Build 'astra-orel' finished after 1 hour 50 minutes.
 
 
 ```
-$ vagrant box add astra-orel-x.x.x ./boxes/astra-orel-x.x.x.box --force
+$ vagrant box add astra-orel-x.x.x boxes/astra-orel/libvirt/x.x.x/astra-orel-x.x.x-Desktop.box --force
 ```
 
 The VM image has been imported to vagrant, it's now available on your system.
@@ -99,7 +99,7 @@ The VM image has been imported to vagrant, it's now available on your system.
 To use this image with Vagrant, create a vagrant file:
 
 ```
-$ vagrant init astra-orel-x.x.x
+$ vagrant init astra-orel-x.x.x-Desktop
 ```
 
 
