@@ -10,7 +10,7 @@
     - [English](#english)
 - [Russian Readme](README.ru.md)
 - [English Readme](README.en.md)
-- [Disclamer/Отказ от ответственности](#Disclamer/Отказ от ответственности)
+- [Disclamer/Отказ от ответственности](#disclamerотказ-от-ответственности)
 <!-- markdown-toc end -->
 # Project Description/Описание проекта
 ## Russian
