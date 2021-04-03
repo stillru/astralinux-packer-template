@@ -11,6 +11,7 @@
 - [Russian Readme](README.ru.md)
 - [English Readme](README.en.md)
 - [Disclamer/Отказ от ответственности](#disclamerотказ-от-ответственности)
+- [Образа/Images]
 <!-- markdown-toc end -->
 # Project Description/Описание проекта
 ## Russian
@@ -30,3 +31,9 @@ This project is my first attempt to lead the project in accordance with the prac
 Я не являюсь сотрудником ГК Astra Linux (ООО «РусБИТех-Астра»). Все права на торговые марки принадлежат их владельцам. Исходный код предоставляется "как есть".
 
 I am not an employee of the Astra Linux Group of Companies (RusBITech-Astra LLC). All rights to trademarks belong to their respective owners. The source code is provided "as is".
+
+## Образа/Images
+
+Результат работы данного тимплейта доступен по адресу https://app.vagrantup.com/stillru/boxes/astra-orel-server & https://app.vagrantup.com/stillru/boxes/astra-orel
+
+The result of this teamplate is available at https://app.vagrantup.com/stillru/boxes/astra-orel-server & https://app.vagrantup.com/stillru/boxes/astra-orel
