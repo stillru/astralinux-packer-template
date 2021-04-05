@@ -35,13 +35,13 @@ let count--
 dd if=/dev/zero of=/boot/whitespace bs=1024 count=$count;
 rm /boot/whitespace;
 sync
-echo "Clean swap"
-swappart=`cat /proc/swaps | tail -n1 | awk -F ' ' '{print $1}'`
-swapoff $swappart;
-dd if=/dev/zero of=$swappart;
-mkswap $swappart;
-swapon $swappart;
-sync
+#echo "Clean swap"
+#swappart=`cat /proc/swaps | tail -n1 | awk -F ' ' '{print $1}'`
+#swapoff $swappart;
+#dd if=/dev/zero of=$swappart;
+#mkswap $swappart;
+#swapon $swappart;
+#sync
 echo "Fill filesystem with 0 to reduce box size"
 dd if=/dev/zero of=/EMPTY bs=1M
 rm -f /EMPTY
