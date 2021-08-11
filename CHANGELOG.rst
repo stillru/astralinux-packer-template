@@ -6,6 +6,8 @@ Changelog
 
 Добавлено
 ~~~~~~~~~
+- Создана вся сопутствующая инфраструктура для семейства ОС AltLinux. [Steve Illichevskiy]
+
 - Добавлен тимплейт для AltLinux 9.1.1. [Steve Illichevskiy]
 
 - Добавлен тимплейт для AltLinux 8.2. [Steve Illichevskiy]
