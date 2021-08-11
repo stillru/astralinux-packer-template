@@ -1,0 +1,4 @@
+rpm [p8] http://mirror.yandex.ru altlinux/p8/branch/x86_64 classic
+rpm [p8] http://mirror.yandex.ru altlinux/p8/branch/x86_64-i586 classic
+rpm [p8] http://mirror.yandex.ru altlinux/p8/branch/noarch classic
+

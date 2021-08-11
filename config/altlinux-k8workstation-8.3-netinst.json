@@ -1,0 +1,128 @@
+{
+  "variables": {
+    "vm_type":              "qemu",
+    "target_version":       "8.3",
+    "arch":                 "x86_64",
+    "type":                 "desktop",
+    "ip_address":           "192.168.1.10",
+    "cpus":                 "2",
+    "name":                 "altlunux",
+    "domain":               "undefined",
+    "version":              "8.3",
+    "user":                 "vagrant",
+    "password":             "vagrant",
+    "size":                 "30000",
+    "mirror":               "https://mirror.yandex.ru/altlinux/p8/images/kworkstation/alt-kworkstation-8.3-install-x86_64.iso",
+    "md5sum":               "d718a9b63fd5eda29ba2dad718485bf3"
+  },
+
+  "builders": [
+    {
+      "machine_type":       "ubuntu",
+      "name":               "{{user `name`}}",
+      "type":               "qemu",
+      "format":             "qcow2",
+      "accelerator":        "kvm",
+      "headless" :          false,
+
+      "disk_size":          "{{user `size`}}",
+      "disk_interface":     "virtio",
+
+      "iso_url":            "{{user `mirror`}}",
+      "iso_checksum":       "md5:{{user `md5sum`}}",
+
+      "http_directory":     "http",
+      "http_port_min":      8999,
+      "http_port_max":      8999,
+
+      "ssh_username":       "{{user `user`}}",
+      "ssh_password":       "{{user `password`}}",
+      "ssh_port":           22,
+      "ssh_wait_timeout":   "240m",
+      "ssh_pty":            true,
+
+      "net_device":         "virtio-net",
+
+      "shutdown_timeout": "1h",
+      "shutdown_command": "echo {{user `password`}}| sudo -S systemctl poweroff",
+
+      "boot_wait":          "2s",
+      "cpus":               "{{ user `cpus` }}",
+      "qemuargs": [
+        [
+          "-m",
+          "1024M"
+        ],
+        [
+          "-smp",
+          "{{ user `cpus` }}"
+        ],
+        [
+          "-rtc",
+          "base=localtime"
+        ]
+      ],
+
+      "boot_command": [
+        "<esc><wait><enter><wait>",
+        "/syslinux/alt0/vmlinuz quiet=1 showopts net.ifnames=0 automatic=method:cdrom,network:dhcp ai curl=http://{{ .HTTPIP }}:{{ .HTTPPort}}/ initrd=/syslinux/alt0/full.cz",
+        "<wait><enter>"
+      ]
+    }
+  ],
+
+  "provisioners": [
+    {
+      "type": "file",
+      "source": "scripts/",
+      "destination": "/tmp/"
+    },
+    {
+      "type": "shell",
+      "script": "scripts/vm_setup",
+      "environment_vars": [
+        "ROOT_PASS={{ user `password` }}",
+        "PASS='{{ user `password` }}'",
+        "SSH_USER='{{ user `user` }}'",
+        "VM_TYPE={{ user `vm_type` }}",
+        "TARGET={{ user `target_version` }}",
+        "TARGET_REPOS={{ user `target_version` }}",
+        "ARCH={{ user `arch` }}",
+        "CLOUDINIT=0",
+        "SISYPHUS=0",
+        "STEP_DIR=/tmp/steps"
+      ]
+    },
+    {
+      "type": "ansible",
+      "playbook_file": "./ansible/alt-generate.yml",
+      "user": "vagrant",
+      "extra_arguments": [ "--extra-vars", "version={{user `version`}} name_host={{user `name`}} type={{user `type`}}"]
+    }
+  ],
+
+  "post-processors": [
+    {
+      "type":                   "vagrant",
+      "output":                 "boxes/{{user `name`}}/libvirt/{{user `version`}}/{{user `name`}}-{{user `version`}}-{{user `type`}}.box",
+      "include": [
+        "data/Vagrantfile",
+        "data/info.json"
+      ]
+    },
+    {
+      "output": "manifest.json",
+      "strip_path": true,
+      "type": "manifest",
+      "custom_data": {
+        "version": "{{user `version`}}"
+      }
+    },
+    {
+      "inline": [
+        "jq . manifest.json"
+      ],
+      "type": "shell-local"
+    }
+  ]
+}

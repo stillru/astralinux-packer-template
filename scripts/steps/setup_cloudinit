@@ -1,0 +1,9 @@
+#! /bin/sh
+set -euo pipefail
+
+echo "Configuring cloud-init"
+mkdir -p /usr/lib/python2.7/site-packages/cloudinit/net
+cp -rf /tmp/etcnet.py /usr/lib/python2.7/site-packages/cloudinit/net/etcnet.py
+systemctl enable cloud-init
+echo "cloud-init configured"
+

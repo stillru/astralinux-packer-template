@@ -1,0 +1,37 @@
+---
+# generate some files for vagrant
+- name: Generate some files for vagrant & provisioning
+  hosts: default
+  gather_facts: no
+  vars_files:
+    - vars/alt_vars.yml
+  pre_tasks:
+    - name: Install python for Ansible
+      raw: test -e /usr/bin/python || (apt-get -y update && apt-get install -y python3 python3-json)
+      become: true
+      changed_when: False
+  tasks:
+    - name: Generate info
+      delegate_to: localhost
+      template:
+        src: "templates/info.json.j2"
+        dest: "../data/info.json"
+
+    - name: Generate metadata
+      delegate_to: localhost
+      template:
+        src: "templates/metadata.json.j2"
+        dest: "../data/metadata.json"
+
+    - name: Generate Vgarantfile
+      delegate_to: localhost
+      template:
+        src: "templates/Vagrantfile.j2"
+        dest: "../data/Vagrantfile"
+
+#    - name: Enable ssh
+#      become: true
+#      service:
+#        name: sshd
+#        enabled: yes
+#        state: started

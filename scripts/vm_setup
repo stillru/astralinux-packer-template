@@ -1,0 +1,64 @@
+#! /bin/sh
+# Script to initiate VM configuration process
+set -euo pipefail
+
+STEP_DIR="${STEP_DIR:-/tmp/steps}"
+TARGET="${TARGET:-alt-server}"
+VM_TYPE="${VM_TYPE:-qemu}"
+SSH_USER="${SSH_USER:-vagrant}"
+TARGET_REPOS="${TARGET_REPOS:-sisyphus}"
+ARCH="${ARCH:-x86_64}"
+CLOUDINIT="${CLOUDINIT:-0}"
+SISYPHUS="${SISYPHUS:-0}"
+ROOT_PASS="${ROOT_PASS:-vagrant}"
+PASS="${PASS:-vagrant}"
+
+if test "${SISYPHUS}" == "1"; then
+	TARGET_REPOS=sisyphus
+fi
+
+show_vars() {
+	echo "Building box: ${TARGET}"
+	echo "Steps are located in: ${STEP_DIR}"
+	echo "Building box for VM type: ${VM_TYPE}"
+	echo "Operating from user: ${SSH_USER}"
+	echo "Targeting repos for: ${TARGET_REPOS}"
+	echo "Targeting repos for architecture: ${ARCH}"
+	echo "Enable cloud-init: ${CLOUDINIT}"
+	echo "Update to Sisyphus: ${SISYPHUS}"
+}
+
+sudo_step() {
+	script_name="${1}"
+
+	echo "STEP: ${script_name}"
+	sudo -E sh -c "${script_name}"
+}
+
+main() {
+	echo "STEP: setup_sudo"
+	{ sleep 2 ; echo "${ROOT_PASS}" ; } | script -q -c "su -c ${STEP_DIR}/setup_sudo" /dev/null
+
+	sudo_step "${STEP_DIR}/disable_repos.sh"
+
+	sudo_step "${STEP_DIR}/setup_apt"
+
+	sudo_step "${STEP_DIR}/setup_vagrant"
+
+	if test "${VM_TYPE}" == "qemu"; then
+		sudo_step "${STEP_DIR}/setup_agent"
+	fi
+
+	sudo_step "${STEP_DIR}/setup_udev"
+
+	if test "${VM_TYPE}" == "qemu"; then
+		sudo_step "${STEP_DIR}/setup_network"
+	fi
+
+	sudo_step "${STEP_DIR}/setup_ssh"
+	sudo_step "${STEP_DIR}/setup_ansible"
+  sudo_step "${STEP_DIR}/minimize"
+}
+
+show_vars
+main

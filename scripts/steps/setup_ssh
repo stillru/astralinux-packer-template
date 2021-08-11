@@ -1,0 +1,7 @@
+#! /bin/sh
+set -euo pipefail
+
+echo "Configuring SSH"
+rm -f /etc/openssh/ssh_host_*
+echo "SSH configured"
+

@@ -1,0 +1,8 @@
+#! /bin/sh
+set -euo pipefail
+
+echo "Configuring UDEV"
+mkdir -p "${HOME}/.ssh"
+curl "http://${PACKER_HTTP_ADDR}/scripts/81-net-hotplug.rules" -o "/etc/udev/rules.d/81-net-hotplug.rules"
+echo "UDEV configured"
+

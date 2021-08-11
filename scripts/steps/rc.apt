@@ -1,0 +1,27 @@
+#!/bin/sh
+
+create_apt_cache_dir()
+{
+        local cache="$1"
+        mkdir -p "$cache/archives/partial/"
+        touch "$cache/archives/lock"
+        chown :rpm -R "$cache"
+        chmod 2770 "$cache"
+        chmod 2770 "$cache/archives"
+        chmod 2770 "$cache/archives/partial"
+        chmod 2640 "$cache/archives/lock"
+}
+
+create_apt_lists_dir()
+{
+        local lists="$1"
+        mkdir -p "$lists/partial/"
+        touch "$lists/lock"
+}
+
+cache_dir=$(apt-config dump |grep "^Dir::Cache .*;$"|sed 's/^Dir::Cache[[:space:]]*"\(.*\)";$/\1/')
+lists_dir=$(apt-config dump |grep "^Dir::State::lists .*;$"|sed 's/^Dir::State::lists[[:space:]]*"\(.*\)";$/\1/')
+
+create_apt_cache_dir "$cache_dir"
+create_apt_lists_dir "$lists_dir"
+

@@ -1,0 +1,9 @@
+#! /bin/sh
+set -euo pipefail
+
+echo "Configuring sudo"
+apt-get update
+apt-get -y install sudo
+sed -i 's|^.*\(WHEEL_USERS ALL=(ALL) NOPASSWD: ALL\)$|\1|' /etc/sudoers
+echo "sudo configured"
+

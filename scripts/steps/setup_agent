@@ -1,0 +1,7 @@
+#! /bin/sh
+set -euo pipefail
+
+echo "Configuring root user"
+curl "http://${PACKER_HTTP_ADDR}/pubkeys/robot.pub" -o "/etc/openssh/authorized_keys/root"
+echo "Root user configured"
+

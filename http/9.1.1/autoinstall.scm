@@ -1,0 +1,20 @@
+("/sysconfig-base/language" action "write" lang ("en_US"))
+("/sysconfig-base/kbd" action "write" layout "ctrl_shift_toggle")
+("/datetime-installer" action "write" commit #t name "RU" zone "Europe/Moscow" utc #t)
+
+("/evms/control" action "write" control open installer #t)
+("/evms/control" action "write" control update)
+("/evms/profiles/workstation" action apply commit #f clearall #t exclude ())
+("/evms/control" action "write" control commit)
+("/evms/control" action "write" control close)
+
+("pkg-init" action "write")
+("/pkg-install" action "write" lists "" auto #t)
+("/preinstall" action "write")
+("/net-eth" action "write" reset #t)
+("/net-eth" action "write" name "eth0" ipv "4" configuration "dhcp" search "" dns "" computer_name "altbuild" ipv_enabled #t)
+("/net-eth" action "write" commit #t)
+
+("/root/change_password" language ("en_US") passwd_1 "vagrant" passwd_2 "vagrant")
+("/users/create_account" new_name "vagrant" gecos "" allow_su #t auto #f passwd_1 "vagrant" passwd_2 "vagrant")
+("/grub" action "write" language ("en_US") device "/dev/vda")

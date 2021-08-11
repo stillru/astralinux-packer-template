@@ -1,0 +1,13 @@
+#! /bin/sh
+set -euo pipefail
+
+echo "Configuring VM for OpenNebula"
+apt-get install -y opennebula-context
+apt-get install -y systemd-networkd
+apt-get remove -y etcnet
+rm -rf /etc/net
+systemctl enable one-context
+systemctl enable systemd-networkd
+ln -s /dev/null /etc/udev/rules.d/80-net-setup-link.rules
+echo "VM configured for OpenNebula"
+

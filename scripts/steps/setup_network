@@ -1,0 +1,12 @@
+#! /bin/sh
+set -euo pipefail
+
+echo "Configuring networking interfaces"
+ls /etc/net/ifaces
+rm -rf "/etc/net/ifaces/ens4"
+if test -e "/etc/net/options.d/50-ALTLinux-server"; then
+	sed -i 's/ALLOW_UNKNOWN=off/ALLOW_UNKNOWN=yes/' /etc/net/options.d/50-ALTLinux-server
+fi
+
+echo "Networking interfaces configured"
+

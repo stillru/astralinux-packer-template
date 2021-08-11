@@ -1,0 +1,4 @@
+rpm [alt] http://mirror.yandex.ru altlinux/Sisyphus/x86_64 classic
+rpm [alt] http://mirror.yandex.ru altlinux/Sisyphus/x86_64-i586 classic
+rpm [alt] http://mirror.yandex.ru altlinux/Sisyphus/noarch classic
+

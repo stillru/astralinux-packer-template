@@ -4,4 +4,6 @@ version: 2.12.42
 name_host: "altlinux-{{ type }}"
 name_full: "AltLinux Kworkstation"
 ansible_become_pass: vagrant
-ansible_become_method: su
+#ansible_become_method: su
+#ansible_become_user: root
+#ansible_become_exe: 'sudo -p "Password: " su -'

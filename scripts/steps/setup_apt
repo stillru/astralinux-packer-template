@@ -1,0 +1,25 @@
+#! /bin/sh
+set -euo pipefail
+
+echo "Configuring APT"
+curl \
+	http://${PACKER_HTTP_ADDR}/repos/yandex-mirror-${TARGET_REPOS}-${ARCH}.list \
+	-o /etc/apt/sources.list.d/yandex-mirror-${TARGET_REPOS}-${ARCH}.list
+
+mv "/tmp/steps/rc.apt" "/etc/rc.d/scripts/apt-cache-on-tmp"
+mv "/tmp/steps/rc.local" "/etc/rc.d/rc.local"
+mv "/tmp/steps/tmp.cache.conf" "/etc/apt/apt.conf.d/tmp.cache.conf"
+/etc/rc.d/scripts/apt-cache-on-tmp
+apt-get clean
+apt-get -qy update
+apt-get -qy install gnupg
+apt-get -qy install apt rpm
+apt-get -qy dist-upgrade
+apt-get clean
+apt-get install -y qemu-guest-agent cloud-init udev-rule-generator-net
+systemctl unmask qemu-guest-agent
+systemctl enable qemu-guest-agent
+systemctl disable cloud-init
+rm -f "/etc/apt/sources.list.d/sources.installer.list"
+
+echo "APT configured"
