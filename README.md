@@ -11,7 +11,7 @@
 - [Russian Readme](README.ru.md)
 - [English Readme](README.en.md)
 - [Disclamer/Отказ от ответственности](#disclamerотказ-от-ответственности)
-- [Образа/Images]
+- [Образа/Images](#ОбразаImages)
 <!-- markdown-toc end -->
 # Project Description/Описание проекта
 ## Russian
