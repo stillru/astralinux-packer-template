@@ -6,6 +6,8 @@ Changelog
 
 Добавлено
 ~~~~~~~~~
+- Добавлен тимплейт для AltLinux 9.1.1. [Steve Illichevskiy]
+
 - Добавлен тимплейт для AltLinux 8.2. [Steve Illichevskiy]
 
 
