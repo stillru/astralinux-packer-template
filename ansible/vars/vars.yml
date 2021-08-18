@@ -1,7 +1,0 @@
----
-type: Desktop
-version: 2.12.42
-name_host: "altlinux-{{ type }}"
-name_full: "AltLinux Kworkstation"
-ansible_become_pass: vagrant
-ansible_become_method: su

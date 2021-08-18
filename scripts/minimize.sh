@@ -15,7 +15,7 @@
 #See the License for the specific language governing permissions and
 #limitations under the License.
 
-apt-get --yes clean
+#apt-get --yes clean
 
 echo "Clean empty space"
 unset HISTFILE

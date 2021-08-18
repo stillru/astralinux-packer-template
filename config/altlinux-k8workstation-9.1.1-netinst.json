@@ -110,19 +110,5 @@
         "data/info.json"
       ]
     },
-    {
-      "output": "manifest.json",
-      "strip_path": true,
-      "type": "manifest",
-      "custom_data": {
-        "version": "{{user `version`}}"
-      }
-    },
-    {
-      "inline": [
-        "jq . manifest.json"
-      ],
-      "type": "shell-local"
-    }
   ]
 }
