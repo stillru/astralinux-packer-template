@@ -1,0 +1,109 @@
+---
+- name: Include vars for Altlinux
+  include_vars:
+    file: vars/alt.yml
+
+- name: Generate info
+  delegate_to: localhost
+  template:
+    src: "templates/info.json.j2"
+    dest: "../data/info.json"
+
+- name: Generate metadata
+  delegate_to: localhost
+  template:
+    src: "templates/metadata.json.j2"
+    dest: "../data/metadata.json"
+
+- name: Generate Vgarantfile
+  delegate_to: localhost
+  template:
+    src: "templates/Vagrantfile.j2"
+    dest: "../data/Vagrantfile"
+
+- name: Enable ssh
+  become: true
+  service:
+    name: ssh
+    enabled: yes
+    state: started
+
+- name: Generate prompt
+  become: true
+  blockinfile:
+    path: "{{ item }}"
+    marker: "#{mark} ANSIBLE MANAGED BLOCK"
+    block: |
+      if [[ $UID == 0 ]]
+      then
+      PS1="[\[\033[1;32m\]{{ version }}\[\033[00m\]|\[\033[1;31m\]\u@\[\033[1;33m\]\h:\[\033[1;31m\]\w]# \[\033[00m\]"
+      else
+      PS1="[\[\033[1;32m\]{{ version }}\[\033[00m\]|\[\033[1;32m\]\u@\[\033[1;33m\]\h:\[\033[1;32m\]\w]$ \[\033[00m\]"
+      fi
+    loop:
+      - /etc/bash.bashrc
+      - /root/.bashrc
+      - /home/vagrant/.bashrc
+
+- name: Create motd directory
+  become: true
+  file:
+    path: "/etc/update-motd.d"
+    state: directory
+
+- name: Copy motd files
+  become: true
+  copy:
+    src: "files/{{ item }}"
+    dest: "/etc/update-motd.d/{{ item }}"
+    mode: 755
+    loop:
+      - 00-header
+      - 10-sysinfo
+      - 90-footer
+
+- name: Clean unessesary packages
+  become: true
+  package:
+    name:
+      - libmtp-runtime
+      - qt4-doc-html
+      - wxmaxima
+      - inkscape
+      - synaptic
+      - jag
+      - fly-all-optional
+      - blender
+      - swfdec-mozilla
+      - maxima
+      - qmmp
+      - linux-image-*-hardened
+    state: absent
+  when: '"Desktop" in type'
+
+- name: Autoclean
+  become: true
+  apt:
+    autoremove: yes
+
+- name: "Enable Autologin"
+  become: yes
+  replace:
+    path: /etc/X11/fly-dm/fly-dmrc
+    regexp: '{{ item.reg}}.*$'
+    replace: '{{ item.repl }}\n'
+    backup: yes
+    loop:
+      - { reg: "#AutoLoginEnable" , repl: "AutoLoginEnable=true" }
+      - { reg: "#AutoLoginUser" , repl: "AutoLoginUser=vagrant" }
+      - { reg: "#AutoLoginPass" , repl: "AutoLoginPass=vagrant" }
+  when: '"Desktop" in type'
+
+- name: Enable DHCP on eth0
+  become: yes
+  blockinfile:
+    path: /etc/network/interfaces
+    marker: "#{mark} ANSIBLE MANAGED BLOCK"
+    block: |
+      allow-hotplug eth0
+      iface eth0 inet dhcp

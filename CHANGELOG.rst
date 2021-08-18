@@ -9,6 +9,11 @@ Changelog
 - Добавлен шаблон для RedOS Murom 7.3. [Stepan Illichevsky]
 
 
+Исправлено
+~~~~~~~~~~
+- Исправлен баг долгого запуска машин AstraLinux Desktop ( fix: #26 ) [Stepan Illichevsky]
+
+
 1.0.0 (2021-08-11)
 ------------------
 

@@ -1,15 +1,16 @@
 {
   "variables": {
+    "type":                 "Desktop",
     "ip_address":           "192.168.1.10",
     "cpus":                 "2",
-    "name":                 "astra-orel",
+    "name":                 "redos-murom",
     "domain":               "undefined",
-    "version":              "2.12.42",
+    "version":              "7.3",
     "user":                 "vagrant",
     "password":             "vagrant",
     "size":                 "30000",
-    "mirror":               "http://download.astralinux.ru/astra/stable/orel/iso/orel-2.12.40-25.12.2020_14.45.iso",
-    "md5sum":               "6c833273619f3f400cdd51854ed4828c"
+    "mirror":               "https://redos.red-soft.ru/redos/7.3/redos-MUROM-7.3-20210412-Everything-x86_64-DVD1.iso",
+    "md5sum":               "2c2fe58b35227bcce0d9a2fca076974b"
   },
 
   "builders": [
@@ -57,24 +58,13 @@
         ]
       ],
       "boot_command": [
-        "<esc><wait>",
-        "<esc><enter><wait>",
-        "/netinst/linux ",
+        "<esc><wait>vmlinuz ",
         "net.ifnames=0 ",
         "modprobe.blacklist=evbug ",
         "vga=788 ",
-        "auto=true ",
-        "priority=critical ",
-        "debian-installer/locale=ru_RU ",
-        "debian-installer/keymap=ru ",
-        "hostname={{user `name`}} ",
-        "domain={{user `domain`}} ",
-        "astra-license/license=true ",
-        "url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/{{user `name`}}-{{user `version`}}-{{user `type`}}.cfg ",
-        "interface=auto ",
-        "netcfg/dhcp_timeout=60 ",
+        "inst.ks=http://{{user `ip_address`}}:{{ .HTTPPort }}/redos.ks.cfg ",
         "acpi=force ",
-        "initrd=/netinst/initrd.gz",
+        "initrd=initrd.img",
         "<enter><wait>"
       ]
     }
